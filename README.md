@@ -49,7 +49,7 @@ To convert this file to vCard, you will have to write :
 
 if you want separate vCards for each person, or
 
-`python csv2vcf.py -s contacts.csv '{"name":1, "tel":2}'`
+`python csv2vcf.py contacts.csv -s '{"name":1, "tel":2}'`
 
 if you want to generate a single vCard file
 
