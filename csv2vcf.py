@@ -44,9 +44,9 @@ def convert_to_vcard(input_file, single_output, input_file_format):
     NOTE = input_file_format['note']
 
     # if single output option is selected
-    if single_output :
-        with open( input_file, 'r' ) as source_file:
-            reader = csv.reader( source_file )
+    if single_output:
+        with open(input_file, 'r', encoding='utf-8-sig') as source_file:
+            reader = csv.DictReader(source_file)
             single_vcf = open('csv2vcf/all_contacts.vcf', 'w')
             i = 0
             for row in reader:
@@ -80,20 +80,20 @@ def convert_to_vcard(input_file, single_output, input_file_format):
                 print('----------------------')
 
                 # write the single file
-                single_vcf.write( 'BEGIN:VCARD' + "\n")
-                single_vcf.write( 'VERSION:3.0' + "\n")
-                single_vcf.write( 'N:' + FN_VAL + ';' + "\n")
-                single_vcf.write( 'FN:' + FN_VAL + "\n")
-                single_vcf.write( 'NICKNAME:' + NICKNAME_VAL + "\n")
-                single_vcf.write( 'TEL;HOME;VOICE:' + TEL_VAL + "\n")
-                single_vcf.write( 'EMAIL:' + EMAIL_VAL + "\n")
-                single_vcf.write( 'BDAY:' + BDAY_VAL + "\n")
-                single_vcf.write( 'ORG:' + ORG_VAL + "\n")
-                single_vcf.write( 'ROLE:' + ROLE_VAL + "\n")
-                single_vcf.write( 'URL:' + URL_VAL + "\n")
-                single_vcf.write( 'NOTE:' + NOTE_VAL + "\n")
-                single_vcf.write( 'END:VCARD' + "\n")
-                single_vcf.write( "\n")
+                single_vcf.write('BEGIN:VCARD' + "\n")
+                single_vcf.write('VERSION:3.0' + "\n")
+                single_vcf.write('N:' + FN_VAL + ';' + "\n")
+                single_vcf.write('FN:' + FN_VAL + "\n")
+                single_vcf.write('NICKNAME:' + NICKNAME_VAL + "\n")
+                single_vcf.write('TEL;HOME;VOICE:' + TEL_VAL + "\n")
+                single_vcf.write('EMAIL:' + EMAIL_VAL + "\n")
+                single_vcf.write('BDAY:' + BDAY_VAL + "\n")
+                single_vcf.write('ORG:' + ORG_VAL + "\n")
+                single_vcf.write('ROLE:' + ROLE_VAL + "\n")
+                single_vcf.write('URL:' + URL_VAL + "\n")
+                single_vcf.write('NOTE:' + NOTE_VAL + "\n")
+                single_vcf.write('END:VCARD' + "\n")
+                single_vcf.write("\n")
 
                 i += 1
 
@@ -102,9 +102,9 @@ def convert_to_vcard(input_file, single_output, input_file_format):
             print('----------------------')
 
     # default ( multi-file output )
-    else :
-        with open( input_file, 'r' ) as source_file:
-            reader = csv.reader( source_file )
+    else:
+        with open(input_file, 'r', encoding='utf-8-sig') as source_file:
+            reader = csv.DictReader(source_file)
             i = 0
             for row in reader:
 
@@ -137,20 +137,21 @@ def convert_to_vcard(input_file, single_output, input_file_format):
                 print('----------------------')
 
                 # write each entry
-                each_vcf = open('csv2vcf/' + FN_VAL + '_' + TEL_VAL + ".vcf", 'w')
-                each_vcf.write( 'BEGIN:VCARD' + "\n")
-                each_vcf.write( 'VERSION:3.0' + "\n")
-                each_vcf.write( 'N:' + FN_VAL + ';' + "\n")
-                each_vcf.write( 'FN:' + FN_VAL + "\n")
-                each_vcf.write( 'NICKNAME:' + NICKNAME_VAL + "\n")
-                each_vcf.write( 'TEL;HOME;VOICE:' + TEL_VAL + "\n")
-                each_vcf.write( 'EMAIL:' + EMAIL_VAL + "\n")
-                each_vcf.write( 'BDAY:' + BDAY_VAL + "\n")
-                each_vcf.write( 'ORG:' + ORG_VAL + "\n")
-                each_vcf.write( 'ROLE:' + ROLE_VAL + "\n")
-                each_vcf.write( 'URL:' + URL_VAL + "\n")
-                each_vcf.write( 'NOTE:' + NOTE_VAL + "\n")
-                each_vcf.write( 'END:VCARD' + "\n")
+                each_vcf = open('csv2vcf/' + FN_VAL +
+                                '_' + TEL_VAL + ".vcf", 'w')
+                each_vcf.write('BEGIN:VCARD' + "\n")
+                each_vcf.write('VERSION:3.0' + "\n")
+                each_vcf.write('N:' + FN_VAL + ';' + "\n")
+                each_vcf.write('FN:' + FN_VAL + "\n")
+                each_vcf.write('NICKNAME:' + NICKNAME_VAL + "\n")
+                each_vcf.write('TEL;HOME;VOICE:' + TEL_VAL + "\n")
+                each_vcf.write('EMAIL:' + EMAIL_VAL + "\n")
+                each_vcf.write('BDAY:' + BDAY_VAL + "\n")
+                each_vcf.write('ORG:' + ORG_VAL + "\n")
+                each_vcf.write('ROLE:' + ROLE_VAL + "\n")
+                each_vcf.write('URL:' + URL_VAL + "\n")
+                each_vcf.write('NOTE:' + NOTE_VAL + "\n")
+                each_vcf.write('END:VCARD' + "\n")
                 each_vcf.write("\n")
                 each_vcf.close()
 
@@ -163,44 +164,50 @@ def convert_to_vcard(input_file, single_output, input_file_format):
 def main(args):
     args_len = len(args)
 
-    if args_len < 3 or args_len > 4 :
-        print ( "Usage:")
-        print ( args[0] + " filename")
+    if args_len < 3 or args_len > 4:
+        print("Usage:")
+        print(args[0] + " filename")
         sys.exit()
 
-    if args_len == 3 :
+    if args_len == 3:
         input_file = args[1]
-        
-        try :
+
+        try:
             input_file_format = json.loads(args[2])
-        except Exception as e :
+        except Exception:
             print('\033[91m'+"ERROR : json could not be parsed"+'\033[0m')
             sys.exit()
 
         single_output = 0
-    elif args_len == 4 :
+    elif args_len == 4:
         input_file = args[1]
 
-        if args[2] == '-s' or args[2] == '--single' :
+        if args[2] == '-s' or args[2] == '--single':
             single_output = 1
-        else :
-            print('\033[91m'+"ERROR : invalid argument `" + args[2] + "`"+'\033[0m')
+        else:
+            print('\033[91m'+"ERROR : invalid argument `" +
+                  args[2] + "`"+'\033[0m')
             sys.exit()
 
-        try :
+        try:
             input_file_format = json.loads(args[3])
-        except Exception as e :
+        except Exception:
             print('\033[91m'+"ERROR : json could not be parsed"+'\033[0m')
             sys.exit()
 
-    if not os.path.exists(input_file) :
-        print('\033[91m'+"ERROR : file `" + input_file + "` not found"+'\033[0m')
+    if not os.path.exists(input_file):
+        print('\033[91m'+"ERROR : file `" +
+              input_file + "` not found"+'\033[0m')
         sys.exit()
 
-    if not os.path.exists('csv2vcf') :
+    if not os.path.exists('csv2vcf'):
         os.makedirs('csv2vcf')
 
     convert_to_vcard(input_file, single_output, input_file_format)
+
+    print('\033[92m'+"DONE"+'\033[0m')
+    print("Output files are in `csv2vcf` folder")
+
 
 if __name__ == '__main__':
     main(sys.argv)
