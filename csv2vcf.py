@@ -10,18 +10,38 @@ import sys
 import csv
 import json
 
+default_input_file_format = {
+    'first_name': None,
+    'last_name': None,
+    'full_name': None,
+    'nickname': None,
+    'org': None,
+    'tel': None,
+    'url': None,
+    'bday': None,
+    'role': None,
+    'email': None,
+    'note': None
+}
+
 
 def convert_to_vcard(input_file, single_output, input_file_format):
 
-    FN = input_file_format['name']-1 if 'name' in input_file_format else None
-    NICKNAME = input_file_format['nickname']-1 if 'nickname' in input_file_format else None
-    ORG = input_file_format['org']-1 if 'org' in input_file_format else None
-    TEL = input_file_format['tel']-1 if 'tel' in input_file_format else None
-    URL = input_file_format['url']-1 if 'url' in input_file_format else None
-    BDAY = input_file_format['bday']-1 if 'bday' in input_file_format else None
-    ROLE = input_file_format['role']-1 if 'role' in input_file_format else None
-    EMAIL = input_file_format['email']-1 if 'email' in input_file_format else None
-    NOTE = input_file_format['note']-1 if 'note' in input_file_format else None
+    input_file_format = {**default_input_file_format, **input_file_format}
+
+    FIRST_NAME = input_file_format['first_name']
+    LAST_NAME = input_file_format['last_name']
+    FULL_NAME = input_file_format['full_name']
+
+    NICKNAME = input_file_format['nickname']
+
+    ORG = input_file_format['org']
+    TEL = input_file_format['tel']
+    URL = input_file_format['url']
+    BDAY = input_file_format['bday']
+    ROLE = input_file_format['role']
+    EMAIL = input_file_format['email']
+    NOTE = input_file_format['note']
 
     # if single output option is selected
     if single_output :
@@ -31,7 +51,10 @@ def convert_to_vcard(input_file, single_output, input_file_format):
             i = 0
             for row in reader:
 
-                FN_VAL = row[FN] if FN is not None else ''
+                FN_VAL = row[FULL_NAME] if FULL_NAME is not None else ''
+                FN_VAL = row[FIRST_NAME] + ' ' + \
+                    row[LAST_NAME] if FN_VAL == '' else FN_VAL
+
                 NICKNAME_VAL = row[NICKNAME] if NICKNAME is not None else ''
                 ORG_VAL = row[ORG] if ORG is not None else ''
                 TEL_VAL = row[TEL] if TEL is not None else ''
@@ -85,7 +108,10 @@ def convert_to_vcard(input_file, single_output, input_file_format):
             i = 0
             for row in reader:
 
-                FN_VAL = row[FN] if FN is not None else ''
+                FN_VAL = row[FULL_NAME] if FULL_NAME is not None else ''
+                FN_VAL = row[FIRST_NAME] + ' ' + \
+                    row[LAST_NAME] if FN_VAL == '' else FN_VAL
+
                 NICKNAME_VAL = row[NICKNAME] if NICKNAME is not None else ''
                 ORG_VAL = row[ORG] if ORG is not None else ''
                 TEL_VAL = row[TEL] if TEL is not None else ''
